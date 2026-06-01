@@ -1,36 +1,186 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# SongVault
+
+Store music metadata on Walrus and retrieve it from anywhere using a Blob ID.
+
+Built for the Tatum x Build on Sui with Walrus Hackathon.
+
+**Stack:** Next.js 15, TypeScript, Walrus, Sui Mainnet, Tatum RPC
+
+---
+
+## What is SongVault?
+
+SongVault is a decentralized music metadata registry built on Sui.
+
+Artists, labels, or music platforms can store track metadata (title, artist, album, genre, cover art, audio preview, etc.) as a blob on Walrus. Every upload gets a unique Blob ID that can be used to retrieve the metadata later.
+
+The app uses Tatum's Sui Mainnet RPC to verify chain information before storing data on Walrus.
+
+No traditional database is required. Metadata is stored on Walrus and retrieved directly using the Blob ID.
+
+---
+
+## Features
+
+* Store music metadata on Walrus
+* Retrieve metadata using a Blob ID
+* Verify Sui Mainnet connectivity through Tatum RPC
+* Decentralized storage by default
+* Simple music vault interface with track previews
+
+---
+
+## How It Works
+
+1. User enters track metadata.
+2. SongVault verifies Sui Mainnet connectivity through Tatum RPC.
+3. Metadata is converted to JSON.
+4. JSON is uploaded to Walrus.
+5. Walrus returns a Blob ID.
+6. The Blob ID can be used later to retrieve the track metadata.
+
+---
+
+## Architecture
+
+```text
+User
+  ↓
+Next.js Frontend
+  ↓
+Next.js API Routes
+  ↓
+Walrus Publisher
+  ↓
+Walrus Storage
+
+           ↘
+        Tatum RPC
+        (Sui Mainnet)
+```
+
+---
+
+## Tech Stack
+
+| Layer        | Technology                           |
+| ------------ | ------------------------------------ |
+| Frontend     | Next.js 15, TypeScript, Tailwind CSS |
+| Storage      | Walrus                               |
+| RPC Provider | Tatum                                |
+| Blockchain   | Sui Mainnet                          |
+| Deployment   | Vercel                               |
+
+---
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+* Node.js 18+
+* Tatum API Key
+
+### Installation
+
+```bash
+git clone https://github.com/YOUR_USERNAME/songvault
+cd songvault
+npm install
+```
+
+### Environment Variables
+
+```env
+TATUM_API_KEY=your_tatum_api_key
+
+NEXT_PUBLIC_WALRUS_AGGREGATOR_URL=https://aggregator.walrus-testnet.walrus.space
+
+WALRUS_PUBLISHER_URL=https://publisher.walrus-testnet.walrus.space
+
+NEXT_PUBLIC_SUI_RPC_URL=https://sui-mainnet.gateway.tatum.io
+```
+
+### Run
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Usage
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Upload Metadata
 
-## Learn More
+* Enter track information
+* Click **Store on Walrus**
+* Receive a Blob ID
 
-To learn more about Next.js, take a look at the following resources:
+### Retrieve Metadata
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+* Enter a Blob ID
+* Click **Find**
+* Metadata is fetched directly from Walrus
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## Tatum Integration
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+SongVault uses Tatum's Sui Mainnet RPC during uploads to verify chain information before storing metadata.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Methods used:
+
+* `sui_getLatestCheckpointSequenceNumber`
+* `sui_getChainIdentifier`
+
+This allows uploads to be validated against live Sui Mainnet data.
+
+---
+
+## Walrus Integration
+
+Track metadata is stored as JSON blobs on Walrus.
+
+After upload, Walrus returns a Blob ID which becomes the permanent reference for that metadata.
+
+Publisher:
+`https://publisher.walrus-testnet.walrus.space`
+
+Aggregator:
+`https://aggregator.walrus-testnet.walrus.space`
+
+---
+
+## Potential Use Cases
+
+* Music metadata registry
+* Music NFT metadata storage
+* Decentralized music catalogs
+* Independent artist distribution records
+* Label-owned metadata archives
+
+---
+
+## Project Structure
+
+```text
+songvault/
+├── app/
+├── components/
+├── lib/
+│   ├── walrus.ts
+│   └── tatum.ts
+└── .env.local
+```
+
+---
+
+## Hackathon
+
+Built for the Tatum x Build on Sui with Walrus Hackathon.
+
+---
+
+## License
+
+MIT
