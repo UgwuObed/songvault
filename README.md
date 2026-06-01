@@ -5,6 +5,7 @@ Store music metadata on Walrus and retrieve it from anywhere using a Blob ID.
 Built for the Tatum x Build on Sui with Walrus Hackathon.
 
 **Stack:** Next.js 15, TypeScript, Walrus, Sui Mainnet, Tatum RPC
+**Live Demo** https://songvault-opal.vercel.app
 
 ---
 
@@ -83,7 +84,7 @@ Walrus Storage
 ### Installation
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/songvault
+git clone https://github.com/UgwuObed/songvault
 cd songvault
 npm install
 ```
@@ -91,7 +92,7 @@ npm install
 ### Environment Variables
 
 ```env
-TATUM_API_KEY=your_tatum_api_key
+TATUM_API_KEY=tatum_api_key
 
 NEXT_PUBLIC_WALRUS_AGGREGATOR_URL=https://aggregator.walrus-testnet.walrus.space
 
